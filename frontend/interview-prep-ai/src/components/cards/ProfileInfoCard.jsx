@@ -13,11 +13,11 @@ const ProfileInfoCard = () => {
   };
   return (
     user && (
-      <div className="flex items-center">
+      <div className="flex items-center border-l border-gray-400">
         <img
           src={user.profileImageUrl}
           alt=""
-          className="w-11 h-11 bg-gray-300 rounded-full mr-3"
+          className="w-11 h-11 bg-gray-300 rounded-full mx-3 object-cover"
         />
         <div>
           <div className="text-[15px] text-black font-bold leading-3">

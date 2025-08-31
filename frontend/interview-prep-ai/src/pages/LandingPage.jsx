@@ -2,7 +2,7 @@ import React, { useContext, useState } from "react";
 
 import HERO_IMG from "../assets/hero-img.png";
 import { APP_FEATURES } from "../utils/data";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { LuSparkles } from "react-icons/lu";
 import Modal from "../components/Modal";
 import Login from "./Auth/Login";
@@ -32,9 +32,17 @@ const LandingPage = () => {
         <div className="container mx-auto px-4 pt-6 pb-[200px] relative z-10">
           {/* Header */}
           <header className="flex justify-between items-center mb-16">
-            <div className="text-xl text-black font-bold">
+            <div className="text-xl text-black font-bold flex items-center gap-5">
               Inverview Prep AI
+              {user && (
+                <Link to="/dashboard">
+                  <h2 className="text-lg font-medium text-gray-700 leading-5">
+                    Dashboard
+                  </h2>
+                </Link>
+              )}
             </div>
+
             {user ? (
               <ProfileInfoCard />
             ) : (
