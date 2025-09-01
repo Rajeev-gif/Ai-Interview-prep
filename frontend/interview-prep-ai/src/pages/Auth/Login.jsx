@@ -55,7 +55,7 @@ const Login = ({ setCurrentPage }) => {
   };
 
   return (
-    <div className="w-[80vw] md:w-[33vw] p-7 flex flex-col justify-center">
+    <div className="w-full max-w-md md:w-[33vw] p-7 flex flex-col justify-center">
       <h3 className="text-lg font-semibold text-black">Welcome Back</h3>
       <p className="text-xs text-slate-700 mt-[5px] mb-6">
         Please enter your details to log in
