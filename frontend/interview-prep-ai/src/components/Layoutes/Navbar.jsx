@@ -13,7 +13,7 @@ const Navbar = () => {
             </h2>
           </Link>
           <Link to="/dashboard">
-            <h2 className="text-lg md:text-xl font-medium text-gray-700 leading-5">
+            <h2 className="text-base md:text-xl font-medium text-gray-700 leading-5">
               Dashboard
             </h2>
           </Link>

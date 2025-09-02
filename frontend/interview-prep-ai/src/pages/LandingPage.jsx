@@ -26,7 +26,7 @@ const LandingPage = () => {
 
   return (
     <>
-      <div className="w-full min-h-full bg-[#FFFCEF]">
+      <div className="w-full min-h-full bg-[#FFFCEF] relative overflow-x-hidden">
         <div className="w-[500px] h-[500px] bg-amber-200/20 blur-[65px] absolute top-0 left-0"></div>
 
         <div className="container mx-auto px-4 pt-6 pb-[200px] relative z-10">
@@ -36,7 +36,7 @@ const LandingPage = () => {
               Inverview Prep AI
               {user && (
                 <Link to="/dashboard">
-                  <h2 className="text-lg font-medium text-gray-700 leading-5">
+                  <h2 className="text-base font-medium text-gray-700 leading-5">
                     Dashboard
                   </h2>
                 </Link>
