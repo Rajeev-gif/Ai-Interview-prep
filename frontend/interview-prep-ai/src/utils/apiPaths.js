@@ -1,5 +1,7 @@
 export const BASE_URL =
-  "http://localhost:8000" || "https://interview-prep-ai-wyej.onrender.com";
+  import.meta.env.MODE === "production"
+    ? "https://interview-prep-ai-wyej.onrender.com"
+    : "http://localhost:8000";
 
 export const API_PATHS = {
   AUTH: {
