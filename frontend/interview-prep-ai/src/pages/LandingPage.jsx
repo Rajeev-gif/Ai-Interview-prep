@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 
-import HERO_IMG from "../assets/hero-img.png";
+import HERO_IMG from "../assets/hero-img-3.png";
 import { APP_FEATURES } from "../utils/data";
 import { Link, useNavigate } from "react-router-dom";
 import { LuSparkles } from "react-icons/lu";
@@ -33,7 +33,7 @@ const LandingPage = () => {
           {/* Header */}
           <header className="flex justify-between items-center mb-16">
             <div className="text-xl text-black font-bold flex items-center gap-5">
-              Inverview Prep AI
+              Inverview AI
               {user && (
                 <Link to="/dashboard">
                   <h2 className="text-base font-medium text-gray-700 leading-5">
