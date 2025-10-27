@@ -5,7 +5,7 @@ import LOGO from "../../assets/interview-prep-ai-logo.png";
 
 const Navbar = () => {
   return (
-    <div className="h-16 bg-white border border-b border-gray-200/50 background-blur-[2px] py-2.5 px-4 md:px-0 sticky top-0 z-30">
+    <div className="h-16 bg-white border border-b border-gray-200/50 background-blur-[2px] py-2.5 px-4 md:px-0 sticky top-0 z-30 rounded-b-4xl">
       <div className="container mx-auto flex itemms-center justify-between gap5">
         <div className="flex items-center gap-5">
           <Link to="/">

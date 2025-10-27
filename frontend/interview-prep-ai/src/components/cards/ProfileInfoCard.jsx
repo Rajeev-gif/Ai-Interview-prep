@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { UserContext } from "../../context/userContext";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const ProfileInfoCard = () => {
   const { user, clearUser } = useContext(UserContext);
@@ -14,15 +14,19 @@ const ProfileInfoCard = () => {
   return (
     user && (
       <div className="flex items-center border-l border-gray-400">
-        <img
-          src={user.profileImageUrl}
-          alt=""
-          className="w-11 h-11 bg-gray-300 rounded-full mx-3 object-cover"
-        />
+        <Link to="/user-profile">
+          <img
+            src={user.profileImageUrl}
+            alt=""
+            className="w-11 h-11 bg-gray-300 rounded-full mx-3 object-cover"
+          />
+        </Link>
         <div>
-          <div className="text-[15px] text-black font-bold leading-3">
-            {user.name || ""}
-          </div>
+          <Link to="/user-profile">
+            <div className="text-[15px] text-black font-bold leading-3 hover:underline">
+              {user.name || ""}
+            </div>
+          </Link>
           <button
             className="text-amber-600 text-sm font-semibold cursor-pointer hover:underline"
             onClick={handleLogout}
