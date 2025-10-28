@@ -16,11 +16,17 @@ const ProfileInfoCard = () => {
       .toUpperCase();
   };
 
+  const getFirstName = (fullName) => {
+    if (!fullName) return "";
+    return fullName.split(" ")[0];
+  };
+
   const handleLogout = () => {
     localStorage.clear();
     clearUser();
     navigate("/");
   };
+
   return (
     user && (
       <div className="flex items-center border-l border-gray-400">
@@ -40,7 +46,7 @@ const ProfileInfoCard = () => {
         <div>
           <Link to="/user-profile">
             <div className="text-[15px] text-black font-bold leading-3 hover:underline">
-              {user.name || ""}
+              {getFirstName(user.name) || ""}
             </div>
           </Link>
           <button
