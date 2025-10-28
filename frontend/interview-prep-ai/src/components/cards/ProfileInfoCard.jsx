@@ -6,6 +6,16 @@ const ProfileInfoCard = () => {
   const { user, clearUser } = useContext(UserContext);
   const navigate = useNavigate();
 
+  const getInitials = (name) => {
+    if (!name) return "";
+    return name
+      .split(" ")
+      .map((s) => s[0])
+      .slice(0, 2)
+      .join("")
+      .toUpperCase();
+  };
+
   const handleLogout = () => {
     localStorage.clear();
     clearUser();
@@ -15,11 +25,17 @@ const ProfileInfoCard = () => {
     user && (
       <div className="flex items-center border-l border-gray-400">
         <Link to="/user-profile">
-          <img
-            src={user.profileImageUrl}
-            alt=""
-            className="w-11 h-11 bg-gray-300 rounded-full mx-3 object-cover"
-          />
+          {user?.profileImageUrl ? (
+            <img
+              src={user.profileImageUrl}
+              alt=""
+              className="w-11 h-11 bg-gray-300 rounded-full mx-3 object-cover"
+            />
+          ) : (
+            <div className="w-11 h-11 mx-3 rounded-full bg-orange-100 text-orange-600 flex items-center justify-center text-[1rem] font-semibold border-2 border-gray-100">
+              {getInitials(user?.name)}
+            </div>
+          )}
         </Link>
         <div>
           <Link to="/user-profile">
