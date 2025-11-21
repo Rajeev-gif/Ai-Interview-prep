@@ -33,7 +33,7 @@ const LandingPage = () => {
           {/* Header */}
           <header className="flex justify-between items-center mb-16">
             <div className="text-xl text-black font-bold flex items-center gap-5">
-              Inverview AI
+              Interview AI
               {user && (
                 <Link to="/dashboard">
                   <h2 className="text-base font-medium text-gray-700 leading-5">
@@ -47,7 +47,7 @@ const LandingPage = () => {
               <ProfileInfoCard />
             ) : (
               <button
-                className="bg-linear-to-r from-[#FF9324] to-[#e99a4b] text-smfont-semibold text-white px-7 py-2.5 rounded-full hover:bg-black hover:text-white border border-white transition-colors cursor-pointer"
+                className="bg-linear-to-r from-[#FF9324] to-[#e99a4b] text-sm font-semibold text-white px-7 py-2.5 rounded-full hover:bg-black hover:text-white border border-white transition-colors cursor-pointer"
                 onClick={() => {
                   setOpenAuthModal(true);
                 }}
