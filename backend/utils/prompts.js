@@ -2,7 +2,7 @@ const questionAnswerPrompt = (
   role,
   experience,
   topicsToFocus,
-  numberOfQuestions
+  numberOfQuestions,
 ) => `
   You are an AI trained to generate technical interview questions and answer.
   
@@ -22,7 +22,12 @@ const questionAnswerPrompt = (
     },
     ...
   ]
-  Important: Do NOT add any extra text. Only return valid JSON.
+  IMPORTANT: Do NOT add any extra text. Only return valid JSON
+  STRICT RULES:
+  - Return ONLY valid JSON
+  - No explanation
+  - No markdown
+  - No text outside JSON.
   `;
 
 const conceptExplanationPrompt = (question) => `

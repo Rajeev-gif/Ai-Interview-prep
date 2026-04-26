@@ -13,6 +13,7 @@
   "type": "commonjs",
   "dependencies": {
     "@google/genai": "^1.14.0",
+    "@huggingface/inference": "^4.13.15",
     "bcryptjs": "^3.0.2",
     "cors": "^2.8.5",
     "dotenv": "^17.2.1",

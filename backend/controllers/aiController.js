@@ -1,13 +1,13 @@
-const { GoogleGenAI } = require("@google/genai");
+const { HfInference } = require("@huggingface/inference");
 const {
   conceptExplanationPrompt,
   questionAnswerPrompt,
 } = require("../utils/prompts");
 const express = require("express");
 
-const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
+const hf = new HfInference(process.env.HUGGINGFACE_TOKEN);
 
-// @desc    Generate interview question and answers using Gemini
+// @desc    Generate interview question and answers using Hugging Face
 // @route   POST /api/ai/generate-questions
 // @access  Private
 const generateInterviewQuestions = async (req, res) => {
@@ -22,26 +22,47 @@ const generateInterviewQuestions = async (req, res) => {
       role,
       experience,
       topicsToFocus,
-      numberOfQuestions
+      numberOfQuestions,
     );
 
-    const response = await ai.models.generateContent({
-      model: "gemini-2.0-flash-lite",
-      contents: prompt,
+    // Use a free text generation model from Hugging Face
+    const response = await hf.chatCompletion({
+      model: "Qwen/Qwen3-Coder-Next",
+      messages: [
+        {
+          role: "user",
+          content: prompt,
+        },
+      ],
+      max_tokens: 1500,
+      temperature: 0.3,
     });
 
-    let rawText = response.text;
+    // The response generated text is in response.generated_text
+    const rawText = response.choices[0].message.content;
 
-    // clean it: Remove ```json and ``` from beginning and end
-    const cleanedText = rawText
-      .replace(/^```json\s*/, "") // remove starting ```josn
-      .replace(/```$/, "") // remove ending ```
-      .trim(); // remove extra spaces
+    // Try to parse the JSON from the output
+    let data;
+    try {
+      // Extract JSON array from text
+      const jsonMatch = rawText.match(/\[[\s\S]*\]/);
 
-    // Now safe to parse
-    const data = JSON.parse(cleanedText);
+      if (!jsonMatch) {
+        throw new Error("No JSON array found");
+      }
 
-    res.status(200).json(data);
+      data = JSON.parse(jsonMatch[0]);
+    } catch (e) {
+      return res.status(200).json({
+        questions: [],
+        raw: rawText,
+        error: "Failed to extract valid JSON.",
+      });
+    }
+
+    res.status(200).json({
+      questions: data,
+    });
   } catch (error) {
     console.error(error);
     res
@@ -50,7 +71,7 @@ const generateInterviewQuestions = async (req, res) => {
   }
 };
 
-// @desc    Generate explains a interview question
+// @desc    Generate explains a interview question using Hugging Face
 // @route   POST /api/ai/generate-explanation
 // @access  Private
 const generateConceptExplanation = async (req, res) => {
@@ -63,21 +84,28 @@ const generateConceptExplanation = async (req, res) => {
 
     const prompt = conceptExplanationPrompt(question);
 
-    const response = await ai.models.generateContent({
-      model: "gemini-2.0-flash-lite",
-      contents: prompt,
+    const response = await hf.chatCompletion({
+      model: "Qwen/Qwen3-Coder-Next",
+      messages: [
+        {
+          role: "user",
+          content: prompt,
+        },
+      ],
+      max_tokens: 1024,
     });
 
-    const rawText = response.text;
-
-    // Clean it: Remove ```josn and ``` from beginning and end
-    const cleannedText = rawText
-      .replace(/^```json\s*/, "") // remove starting ```josn
-      .replace(/```$/, "") // remove ending ```
-      .trim(); // remove extra spaces
-
-    // Now safe to parse
-    const data = JSON.parse(cleannedText);
+    const rawText = response.choices[0].message.content;
+    let data;
+    try {
+      data = JSON.parse(rawText);
+    } catch (e) {
+      return res.status(200).json({
+        explanation: null,
+        raw: rawText,
+        error: "Failed to parse AI response as JSON.",
+      });
+    }
 
     res.status(200).json(data);
   } catch (error) {

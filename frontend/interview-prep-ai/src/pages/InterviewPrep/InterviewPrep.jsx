@@ -30,7 +30,7 @@ const InterviewPrep = () => {
   const fetchSessionDetailsById = async () => {
     try {
       const response = await axiosInstance.get(
-        API_PATHS.SESSION.GET_ONE(sessionId)
+        API_PATHS.SESSION.GET_ONE(sessionId),
       );
 
       if (response.data && response.data.session) {
@@ -54,7 +54,7 @@ const InterviewPrep = () => {
         API_PATHS.AI.GENERATE_EXPLANATION,
         {
           question,
-        }
+        },
       );
 
       if (response.data) {
@@ -72,7 +72,7 @@ const InterviewPrep = () => {
   const toggleQuestionPinStatus = async (questionId) => {
     try {
       const resposne = await axiosInstance.post(
-        API_PATHS.QUESTION.PIN(questionId)
+        API_PATHS.QUESTION.PIN(questionId),
       );
 
       console.log(resposne);
@@ -101,7 +101,7 @@ const InterviewPrep = () => {
           experience: sessionData?.experience,
           topicsToFocus: sessionData?.topicsToFocus,
           numberOfQuestions: 10,
-        }
+        },
       );
 
       // Should be array like [{questions, answer}, ...]
@@ -112,7 +112,7 @@ const InterviewPrep = () => {
         {
           sessionId,
           questions: generatedQuestions,
-        }
+        },
       );
 
       if (response.data) {
@@ -121,9 +121,9 @@ const InterviewPrep = () => {
       }
     } catch (error) {
       if (error.response && error.response.data.message) {
-        setError(error.response.data.message);
+        setErrorMsg(error.response.data.message);
       } else {
-        setError("Something went wrong, Please try again.");
+        setErrorMsg("Something went wrong, Please try again.");
       }
     } finally {
       setIsUpdateLoader(false);

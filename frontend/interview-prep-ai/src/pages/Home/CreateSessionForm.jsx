@@ -47,15 +47,28 @@ const CreateSessionForm = () => {
           experience,
           topicsToFocus,
           numberOfQuestions: 10,
-        }
+        },
       );
 
+      console.log("AI RESPONSE:", aiResponse.data);
+
       // Should be array like [{question, answer}, ...]
-      const generatedQuestions = aiResponse.data;
+      const generatedQuestions = aiResponse.data.questions;
+
+      if (!generatedQuestions || !Array.isArray(generatedQuestions)) {
+        throw new Error("Invalid AI response format");
+      }
+
+      console.log("QUESTIONS SENT:", generatedQuestions);
+
+      const formattedQuestions = generatedQuestions.map((q) => ({
+        question: q.question || q.q || q.text || "",
+        answer: q.answer || "",
+      }));
 
       const response = await axiosInstance.post(API_PATHS.SESSION.CREATE, {
         ...formData,
-        questions: generatedQuestions,
+        questions: formattedQuestions,
       });
 
       if (response.data?.session?._id) {
