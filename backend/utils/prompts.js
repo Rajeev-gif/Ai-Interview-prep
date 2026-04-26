@@ -28,6 +28,7 @@ const questionAnswerPrompt = (
   - No explanation
   - No markdown
   - No text outside JSON.
+  - Can add a small block of code in some answers for example if needed.
   `;
 
 const conceptExplanationPrompt = (question) => `
